@@ -5,7 +5,7 @@
       <ul>
         <li ng-repeat="job in jobctrl.jobs">
           JOB TITLE:
-          {{job.title}}
+          {{job.title}}<br>
           COMPANY:
           {{job.company}}
           <form ng-submit="jobctrl.updateJobs(job, updatedJob)">
@@ -14,7 +14,11 @@
             <button type="submit">SUBMIT</button>
           </form>
           <button ng-click="jobctrl.deleteJobs(job)">DELETE</button>
-        <li>
+        </li>
+        <li ng-repeat="event in jobctrl.events">
+          EVENT TITLE: {{event.typeId}} <br>
+          EVENT NOTE: {{event.note}} <br>
+        </li>
       </ul>
       <form ng-submit="jobctrl.addJobs()">
         <input type="text" ng-model="jobctrl.newJob.title" placeholder="title">

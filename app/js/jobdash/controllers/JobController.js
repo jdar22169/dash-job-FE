@@ -1,7 +1,8 @@
 module.exports = function(app) {
   app.controller('JobController', function($http, AuthService) {
     this.$http = $http;
-    this.jobs = [];
+    this.jobs = [{title: 'Maddie', company: 'CodeFellows'}];
+    this.events = [{typeId: '10', note: 'job test'}];
 
     this.getActiveJobs = function(){
       $http({
@@ -12,8 +13,18 @@ module.exports = function(app) {
         }
       })
       .then((res) => {
-        console.log(res.data);
         this.jobs = res.data.jobs;
+      }).then(() => {
+        $http({
+          method:'GET',
+          url:'http://localhost:3000/events/active',
+          headers: {
+            token: AuthService.getToken()
+          }
+        })
+        .then((res) => {
+          this.events = res.data.events;
+        });
       },(err) => {
         console.log(err);
       });
